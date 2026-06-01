@@ -4,10 +4,27 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+/*const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+  </React.StrictMode>
+);*/
+
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+
+const store = createStore((state = [{id: 1, name: 'Orange', price: 0.99}, {id: 2, name: 'Apple', price: 1.49}], action) => {
+	if(action.type === "ADD") return [...state,action.item];
+	return state;
+});
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+	<Provider store={store}>
+		<App />
+	</Provider>
   </React.StrictMode>
 );
 
